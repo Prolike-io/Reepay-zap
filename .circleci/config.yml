@@ -22,9 +22,6 @@ jobs:
 
   build:
     working_directory: /app
-    docker:
-      - image: atlassianlabs/docker-node-jdk-chrome-firefox
-      - image: selenium/standalone-chrome
     steps:
       - checkout
 
@@ -40,8 +37,6 @@ jobs:
           - v1-dependencies-
 
       - run: npm install
-      - run: ./node_modules/.bin/selenium-standalone install
-
       - save_cache:
           paths:
             - node_modules
