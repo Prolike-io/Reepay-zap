@@ -28,10 +28,10 @@ module.exports = {
           'invoice_dunning_notification', 'invoice_dunning_cancelled', 'invoice_failed',
           'invoice_refund', 'invoice_reactivate', 'invoice_cancelled', 'invoice_changed',
           'invoice_credited',]
-        },
-        { key: 'customer_handle', required: true, type: 'string' },
-        { key: 'subscription_handle', helpText: 'Handle/id of the subscription', type: 'string' },
-        {
+      },
+      { key: 'customer_handle', required: true, type: 'string' },
+      { key: 'subscription_handle', helpText: 'Handle/id of the subscription', type: 'string' },
+      {
         key: 'returns', children: [
           {
             key: 'customer_fields', list: true, choices: [
@@ -88,9 +88,16 @@ module.exports = {
     ],
 
     perform: (z, bundle) => {
-      return asdasddsa(z, bundle.inputData.customer_handle, bundle.inputData.subscription_handle, bundle.inputData.apikey)
-      // return { 'rtn': rtn };
-      },
+
+      return asdasddsa(z, bundle.inputData.customer_handle, bundle.inputData.subscription_handle, bundle.inputData.apikey, bundle)
+      // var objs = asdasddsa(z, bundle.inputData.customer_handle, bundle.inputData.subscription_handle, bundle.inputData.apikey)
+      // // return objs;
+      // filtered_obj = {
+      //   "cust": filter_object(bundle.inputData.returns[0].customer_fields, objs.cust),
+      //   "sub": filter_object(bundle.inputData.returns[0].subscription_fields, objs.sub)
+      // };
+      // return filtered_obj;
+    },
 
     // In cases where Zapier needs to show an example record to the user, but we are unable to get a live example
     // from the API, Zapier will fallback to this hard-coded sample. It should reflect the data structure of
@@ -105,6 +112,20 @@ module.exports = {
     },
   }
 };
+
+function filter_object(return_filter, obj) {
+  // return obj;
+  var rtn_obj = {};
+  // for (let i = 0; i < return_filter.length; i++) {
+  //   const el = return_filter[i];
+  //   rtn_obj[el] = obj[el];
+  // }
+  return_filter.forEach(el => {
+    rtn_obj[el] = obj[el];
+  });
+  return rtn_obj;
+}
+
 
 function cust_api(z, cust_id, apikey) {
   const promise = z.request({
@@ -130,8 +151,12 @@ function sub_api(z, cust_id, apikey) {
   return promise
 }
 
-async function asdasddsa(z, cust_id, sub_handle, apikey){
+async function asdasddsa(z, cust_id, sub_handle, apikey, bundle) {
   var bla1 = await sub_api(z, sub_handle, apikey)
   var bla2 = await cust_api(z, cust_id, apikey)
-  return {"sub": bla1, "cust": bla2}
+  
+  return { 
+    "cust": filter_object(bundle.inputData.returns[0].customer_fields, bla2), 
+    "sub": filter_object(bundle.inputData.returns[0].subscription_fields, bla1) 
+  }
 }
