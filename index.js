@@ -1,23 +1,22 @@
 const recipe = require('./triggers/recipe');
 const recipe_create = require('./creates/recipe');
+const authentication = require('./authentication');
 
-
-const addAuthHeader = (request, z, bundle) => {
-  // Hard-coded auth header just for demo
-  request.headers['X-API-Key'] = 'secret';
+const includeApiKey = (request, z, bundle) => {
+  if (bundle.authData.apiKey) {
+    request.params = request.params || {};
+    request.headers.Authorization = bundle.authData.apiKey;
+  }
   return request;
 };
 
-
-
-// Now we can roll up all our behaviors in an App.
 const App = {
-  // This is just shorthand to reference the installed dependencies you have. Zapier will
-  // need to know these before we can upload
   version: require('./package.json').version,
   platformVersion: require('zapier-platform-core').version,
 
-  beforeRequest: [addAuthHeader],
+  authentication: authentication,
+
+  beforeRequest: includeApiKey,
 
   afterResponse: [],
 

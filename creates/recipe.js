@@ -14,7 +14,6 @@ module.exports = {
   // `operation` is where the business logic goes.
   operation: {
     inputFields: [
-      { key: 'apikey', required: true, type: 'string' },
       {
         key: 'event_type', required: true, type: 'string',
         choices: [
@@ -86,40 +85,14 @@ module.exports = {
         ]
       },
     ],
-
     perform: (z, bundle) => {
-
-      return asdasddsa(z, bundle.inputData.customer_handle, bundle.inputData.subscription_handle, bundle.inputData.apikey, bundle)
-      // var objs = asdasddsa(z, bundle.inputData.customer_handle, bundle.inputData.subscription_handle, bundle.inputData.apikey)
-      // // return objs;
-      // filtered_obj = {
-      //   "cust": filter_object(bundle.inputData.returns[0].customer_fields, objs.cust),
-      //   "sub": filter_object(bundle.inputData.returns[0].subscription_fields, objs.sub)
-      // };
-      // return filtered_obj;
-    },
-
-    // In cases where Zapier needs to show an example record to the user, but we are unable to get a live example
-    // from the API, Zapier will fallback to this hard-coded sample. It should reflect the data structure of
-    // returned records, and have obviously dummy values that we can show to any user.
-    sample: {
-      id: 1,
-      createdAt: 1472069465,
-      name: 'Best Spagetti Ever',
-      authorId: 1,
-      directions: '1. Boil Noodles\n2.Serve with sauce',
-      style: 'italian'
+      return main(z, bundle.inputData.customer_handle, bundle.inputData.subscription_handle, bundle)
     },
   }
 };
 
 function filter_object(return_filter, obj) {
-  // return obj;
   var rtn_obj = {};
-  // for (let i = 0; i < return_filter.length; i++) {
-  //   const el = return_filter[i];
-  //   rtn_obj[el] = obj[el];
-  // }
   return_filter.forEach(el => {
     rtn_obj[el] = obj[el];
   });
@@ -127,33 +100,31 @@ function filter_object(return_filter, obj) {
 }
 
 
-function cust_api(z, cust_id, apikey) {
+function cust_api(z, cust_id) {
   const promise = z.request({
     url: 'https://api.reepay.com/v1/customer/' + cust_id,
     method: 'GET',
     headers: {
       'content-type': 'application/json',
-      'authorization': 'basic ' + apikey
     }
   }).then((response) => JSON.parse(response.content))
   return promise
 }
 
-function sub_api(z, cust_id, apikey) {
+function sub_api(z, cust_id) {
   const promise = z.request({
     url: 'https://api.reepay.com/v1/subscription/' + cust_id,
     method: 'GET',
     headers: {
       'content-type': 'application/json',
-      'authorization': 'basic ' + apikey
     }
   }).then((response) => JSON.parse(response.content))
   return promise
 }
 
-async function asdasddsa(z, cust_id, sub_handle, apikey, bundle) {
-  var bla1 = await sub_api(z, sub_handle, apikey)
-  var bla2 = await cust_api(z, cust_id, apikey)
+async function main(z, cust_id, sub_handle, bundle) {
+  var bla1 = await sub_api(z, sub_handle)
+  var bla2 = await cust_api(z, cust_id)
   
   return { 
     "cust": filter_object(bundle.inputData.returns[0].customer_fields, bla2), 
