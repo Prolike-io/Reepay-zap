@@ -1,4 +1,3 @@
-const recipe = require('./triggers/recipe');
 const recipe_create = require('./creates/recipe');
 const authentication = require('./authentication');
 
@@ -23,9 +22,7 @@ const App = {
   resources: {},
 
   // If you want your trigger to show up, you better include it here!
-  triggers: {
-    [recipe.key]: recipe
-  },
+  triggers: {},
 
   // If you want your searches to show up, you better include it here!
   searches: {},
