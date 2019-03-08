@@ -88,87 +88,9 @@ module.exports = {
     ],
 
     perform: (z, bundle) => {
-      // settings = JSON.parse(bundle.inputData);
-
-      // if (bundle.inputData.event_type in settings) {
-      //   tmp_setting = settings[bundle.inputData.event_type]
-      //   return_object = {}
-      //   if (tmp_setting["customer"]) {
-      //     const promise = z.request({
-      //       url: 'https://api.reepay.com/v1/customer/' + bundle.inputData.customer,
-      //       method: 'GET',
-      //       headers: {
-      //         'content-type': 'application/json',
-      //         'authorization': 'basic ' + bundle.inputData.apikey
-      //       }
-      //     }).then((response) => JSON.parse(response.content)).then((json_obj) => {
-
-
-      //       z.request({
-      //         url: 'http://dcarl.me:5000/v1/test',
-      //         method: 'POST',
-      //         body: JSON.stringify({
-      //           data: json_obj
-      //         }),
-      //         headers: {
-      //           'content-type': 'application/json',
-
-      //           // This is NOT how you normally do authentication. This is just to demo how to write a create here.
-      //           // Refer to this doc to set up authentication:
-      //           // https://zapier.github.io/zapier-platform-cli/#authentication
-      //           'X-API-Key': bundle.inputData.apikey
-      //         }
-      //       });
-      //     })
-      // return promise.then((response) => JSON.parse(response.content));
-      rtn = [];
-
-      rtn.push(bundle.inputData)
-
-
-
-      return { 'rtn': rtn };
-      // return bundle.inputData;
-      // const promise2 = z.request({
-      //   url: 'http://dcarl.me:5000/v1/test',
-      //   method: 'POST',
-      //   body: JSON.stringify({
-      //     data: promise
-      //   }),
-      //   headers: {
-      //     'content-type': 'application/json',
-
-      //     // This is NOT how you normally do authentication. This is just to demo how to write a create here.
-      //     // Refer to this doc to set up authentication:
-      //     // https://zapier.github.io/zapier-platform-cli/#authentication
-      //     'X-API-Key': bundle.inputData.apikey
-      //   }
-      // });
-
-      // return promise2.then((response) => JSON.parse(response.content));
-      // }
-
-      //   const promise = z.request({
-      //     url: 'http://dcarl.me:5000/v1/test',
-      //     method: 'POST',
-      //     body: JSON.stringify({
-      //       key: bundle.inputData.apikey,
-      //       Event_Type: bundle.inputData.event_type,
-      //       blin: bundle.inputData.blin,
-      //     }),
-      //     headers: {
-      //       'content-type': 'application/json',
-
-      //       // This is NOT how you normally do authentication. This is just to demo how to write a create here.
-      //       // Refer to this doc to set up authentication:
-      //       // https://zapier.github.io/zapier-platform-cli/#authentication
-      //       'X-API-Key': bundle.inputData.apikey
-      //     }
-      //   });
-
-      //   return promise.then((response) => JSON.parse(response.content));
-      // }
-    },
+      return asdasddsa(z, bundle.inputData.customer_handle, bundle.inputData.subscription_handle, bundle.inputData.apikey)
+      // return { 'rtn': rtn };
+      },
 
     // In cases where Zapier needs to show an example record to the user, but we are unable to get a live example
     // from the API, Zapier will fallback to this hard-coded sample. It should reflect the data structure of
@@ -181,19 +103,35 @@ module.exports = {
       directions: '1. Boil Noodles\n2.Serve with sauce',
       style: 'italian'
     },
-
-    // If the resource can have fields that are custom on a per-user basis, define a function to fetch the custom
-    // field definitions. The result will be used to augment the sample.
-    // outputFields: () => { return []; }
-    // Alternatively, a static field definition should be provided, to specify labels for the fields
-    // outputFields: [
-    //   {key: 'id', label  : 'ID'},
-    //   {key: 'apikey', label: 'API Key'},
-    //   {key: 'createdAt', label: 'Created At'},
-    //   {key: 'event_type', label: 'Event type'},
-    //   {key: 'directions', label: 'Directions'},
-    //   {key: 'authorId', label: 'Author ID'},
-    //   {key: 'style', label: 'Style'}
-    // ]
   }
 };
+
+function cust_api(z, cust_id, apikey) {
+  const promise = z.request({
+    url: 'https://api.reepay.com/v1/customer/' + cust_id,
+    method: 'GET',
+    headers: {
+      'content-type': 'application/json',
+      'authorization': 'basic ' + apikey
+    }
+  }).then((response) => JSON.parse(response.content))
+  return promise
+}
+
+function sub_api(z, cust_id, apikey) {
+  const promise = z.request({
+    url: 'https://api.reepay.com/v1/subscription/' + cust_id,
+    method: 'GET',
+    headers: {
+      'content-type': 'application/json',
+      'authorization': 'basic ' + apikey
+    }
+  }).then((response) => JSON.parse(response.content))
+  return promise
+}
+
+async function asdasddsa(z, cust_id, sub_handle, apikey){
+  var bla1 = await sub_api(z, sub_handle, apikey)
+  var bla2 = await cust_api(z, cust_id, apikey)
+  return {"sub": bla1, "cust": bla2}
+}
