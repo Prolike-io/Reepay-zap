@@ -4,7 +4,7 @@ const authentication = require('./authentication');
 const includeApiKey = (request, z, bundle) => {
   if (bundle.authData.apiKey) {
     request.params = request.params || {};
-    request.headers.Authorization = bundle.authData.apiKey;
+    request.headers.Authorization = Buffer.from(bundle.authData.apiKey).toString('base64').toString();
   }
   return request;
 };
