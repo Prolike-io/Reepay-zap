@@ -1,6 +1,4 @@
 require('should');
-const nock = require('nock')
-const sinon = require('sinon');
 const expect = require("chai").expect;
 const assert = require("chai").assert;
 
@@ -12,24 +10,8 @@ const helper = require('../creates/helper')
 const appTester = zapier.createAppTester(App);
 
 describe('creates', () => {
-
-    before(function () {
-    });
-
-    beforeEach(function () {
-
-    });
-
-    after(function () {
-        sinon.restore();
-    });
-
     describe('API', () => {
-        let apiMock = nock('https://api.reepay.com')
-        ///v1/subscription/
-
         it('Filter API response', (done) => {
-
             const bundle = {
                 inputData: {
                     "customer_handle": "customer006",
@@ -70,8 +52,6 @@ describe('creates', () => {
             expect(resSub).to.have.property('handle')
             expect(resSub).to.have.property('customer')
             expect(resSub).to.not.have.property('plan')
-
-            // console.log(res)
 
             done();
         });
