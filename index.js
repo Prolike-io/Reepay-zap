@@ -1,10 +1,10 @@
-const recipe_create = require('./creates/recipe');
+const configuration = require('./creates/configuration');
 const authentication = require('./authentication');
 
 const includeApiKey = (request, z, bundle) => {
   if (bundle.authData.apiKey) {
     request.params = request.params || {};
-    request.headers.Authorization = Buffer.from(bundle.authData.apiKey).toString('base64').toString();
+    request.headers.Authorization = Buffer.from(bundle.authData.apiKey).toString('base64');
   }
   return request;
 };
@@ -22,14 +22,15 @@ const App = {
   resources: {},
 
   // If you want your trigger to show up, you better include it here!
-  triggers: {},
+  triggers: {
+  },
 
   // If you want your searches to show up, you better include it here!
   searches: {},
 
   // If you want your creates to show up, you better include it here!
   creates: {
-    [recipe_create.key]: recipe_create
+    [configuration.key]: configuration
   }
 };
 

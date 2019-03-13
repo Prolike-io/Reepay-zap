@@ -1,14 +1,16 @@
 // We recommend writing your creates separate like this and rolling them
 // into the App definition at the end.
+const helper = require('./helper')
+
 module.exports = {
-  key: 'recipe',
+  key: 'Setup Type',
 
   // You'll want to provide some helpful display labels and descriptions
   // for users. Zapier will put them into the UX.
-  noun: 'Recipe',
+  noun: 'Setup Type',
   display: {
-    label: 'Bla',
-    description: 'BlaBlablablablalbalba'
+    label: 'Basic Setup',
+    description: 'This is where you are gonna configurate how the zap should work in connection to reepay'
   },
 
   // `operation` is where the business logic goes.
@@ -86,48 +88,13 @@ module.exports = {
       },
     ],
     perform: (z, bundle) => {
-      return main(z, bundle.inputData.customer_handle, bundle.inputData.subscription_handle, bundle)
+      return helper.main(
+        z, 
+        bundle.inputData.customer_handle, 
+        bundle.inputData.subscription_handle, 
+        bundle.inputData.returns[0].customer_fields,  
+        bundle.inputData.returns[0].subscription_fields
+        )
     },
   }
 };
-
-function filter_object(return_filter, obj) {
-  var rtn_obj = {};
-  return_filter.forEach(el => {
-    rtn_obj[el] = obj[el];
-  });
-  return rtn_obj;
-}
-
-
-function cust_api(z, cust_id) {
-  const promise = z.request({
-    url: 'https://api.reepay.com/v1/customer/' + cust_id,
-    method: 'GET',
-    headers: {
-      'content-type': 'application/json',
-    }
-  }).then((response) => JSON.parse(response.content))
-  return promise
-}
-
-function sub_api(z, cust_id) {
-  const promise = z.request({
-    url: 'https://api.reepay.com/v1/subscription/' + cust_id,
-    method: 'GET',
-    headers: {
-      'content-type': 'application/json',
-    }
-  }).then((response) => JSON.parse(response.content))
-  return promise
-}
-
-async function main(z, cust_id, sub_handle, bundle) {
-  var bla1 = await sub_api(z, sub_handle)
-  var bla2 = await cust_api(z, cust_id)
-  
-  return { 
-    "cust": filter_object(bundle.inputData.returns[0].customer_fields, bla2), 
-    "sub": filter_object(bundle.inputData.returns[0].subscription_fields, bla1) 
-  }
-}
