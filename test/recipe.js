@@ -5,7 +5,7 @@ const assert = require("chai").assert;
 const zapier = require('zapier-platform-core');
 
 const App = require('../index');
-const trigger = require('../creates/configuration')
+// const trigger = require('../creates/configuration')
 const helper = require('../creates/helper')
 const appTester = zapier.createAppTester(App);
 

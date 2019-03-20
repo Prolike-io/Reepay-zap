@@ -3,37 +3,41 @@
 const helper = require('./helper')
 
 module.exports = {
-  key: 'Setup Type',
+  key: 'Invoice',
 
   // You'll want to provide some helpful display labels and descriptions
   // for users. Zapier will put them into the UX.
-  noun: 'Setup Type',
+  noun: 'Invoice',
   display: {
-    label: 'Basic Setup',
-    description: 'This is where you are gonna configurate how the zap should work in connection to reepay'
+    label: 'Invoice',
+    description: 'For webhooks with the event_type invoice_*'
+    // description: 'This is where you are gonna configurate how the zap should work in connection to reepay'
   },
 
   // `operation` is where the business logic goes.
   operation: {
     inputFields: [
-      {
-        key: 'event_type', required: true, type: 'string',
-        choices: [
-          'customer_created', 'customer_changed', 'customer_deleted',
-          'subscription_created', 'subscription_payment_method_added',
-          'subscription_payment_method_changed', 'subscription_trial_end', 'subscription_renewal',
-          'subscription_cancelled', 'subscription_uncancelled', 'subscription_on_hold',
-          'subscription_on_hold_dunning', 'subscription_reactivated',
-          'subscription_expired', 'subscription_expired_dunning', 'subscription_changed',
-          'invoice_created', 'invoice_settled', 'invoice_authorized', 'invoice_dunning',
-          'invoice_dunning_notification', 'invoice_dunning_cancelled', 'invoice_failed',
-          'invoice_refund', 'invoice_reactivate', 'invoice_cancelled', 'invoice_changed',
-          'invoice_credited',]
-      },
-      { key: 'customer_handle', required: true, type: 'string' },
+      { key: 'invoice_handle', required: true, type: 'string' },
+      { key: 'customer_handle', type: 'string' },
       { key: 'subscription_handle', helpText: 'Handle/id of the subscription', type: 'string' },
       {
         key: 'returns', children: [
+          {
+            key: 'invoice_fields', list: true, choices: [
+              "id", "handle", "customer", "subscription",
+              "plan", "state", "type", "amount", "number",
+              "currency", "due", "failed", "settled",
+              "cancelled", "authorized", "credits",
+              "created", "plan_version", "dunning_plan",
+              "discount_amount", "org_amount", "amount_vat",
+              "amount_ex_vat", "settled_amount", "refunded_amount",
+              "authorized_amount", "credited_amount", "period_number",
+              "order_lines", "additional_costs", "transactions",
+              "credit_notes", "dunning_start", "dunning_count",
+              "dunning_expired", "period_from", "period_to",
+              "settle_later", "shipping_address"
+            ]
+          },
           {
             key: 'customer_fields', list: true, choices: [
               "handle", "email", "first_name", "last_name",
@@ -52,7 +56,6 @@ module.exports = {
               "pending_credits", "pending_credit_amount", "transferred_credits",
               "transferred_credit_amount", "test",]
           },
-
           {
             key: 'subscription_fields', list: true, choices: [
               "handle", "customer", "plan", "state",
@@ -89,12 +92,22 @@ module.exports = {
     ],
     perform: (z, bundle) => {
       return helper.main(
-        z, 
-        bundle.inputData.customer_handle, 
-        bundle.inputData.subscription_handle, 
-        bundle.inputData.returns[0].customer_fields,  
-        bundle.inputData.returns[0].subscription_fields
-        )
+        z,
+        {
+          'cust': {
+            'handle': bundle.inputData.customer_handle,
+            'filter': (bundle.inputData.hasOwnProperty('returns')) ? bundle.inputData.returns[0].customer_fields : []
+          },
+          'sub': {
+            'handle': bundle.inputData.subscription_handle,
+            'filter': (bundle.inputData.hasOwnProperty('returns')) ? bundle.inputData.returns[0].subscription_fields : []
+          },
+          'invoice': {
+            'handle': bundle.inputData.invoice_handle,
+            'filter': (bundle.inputData.hasOwnProperty('returns')) ? bundle.inputData.returns[0].invoice_fields : []
+          }
+        }
+      )
     },
   }
 };

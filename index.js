@@ -1,4 +1,6 @@
-const configuration = require('./creates/configuration');
+const sub = require('./creates/subscription');
+const customer = require('./creates/customer');
+const invoice = require('./creates/invoice');
 const authentication = require('./authentication');
 
 const includeApiKey = (request, z, bundle) => {
@@ -30,7 +32,9 @@ const App = {
 
   // If you want your creates to show up, you better include it here!
   creates: {
-    [configuration.key]: configuration
+    [customer.key]: customer,
+    [sub.key]: sub,
+    [invoice.key]: invoice
   }
 };
 
