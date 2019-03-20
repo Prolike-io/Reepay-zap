@@ -49,11 +49,12 @@ Now go back to Zapier, here you should now click on 'Ok, i did this', this will 
 
 Next thing you need to do is to add the Reepay zapier application.
 
-<SELECT ACTION HERE WRITE THIS HERE>
+SELECT ACTION HERE WRITE THIS HERE
 
 Now you will be presented with a screen wherethere is a button called 'Connect an Account'. This will open a popup window where it ask permission to access your Reepay Account. Now its time to dig the API key from earlier back up, and put it in the API Key field and click 'Yes, Continue'. 
 
-<WRITE MORE HERE WHEN THERE IS MORE INFORMATION AVAIBLE>
+WRITE MORE HERE WHEN THERE IS MORE INFORMATION AVAIBLE
+
 
 ## DISCLAIMER
 
