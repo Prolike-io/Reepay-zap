@@ -10,8 +10,8 @@ module.exports = {
   noun: 'Invoice',
   display: {
     label: 'Invoice',
-    description: 'For webhooks with the event_type invoice_*'
-    // description: 'This is where you are gonna configurate how the zap should work in connection to reepay'
+    description: 'For information regarding invoices. This includes creation, paid, entered dunning, failed, refunded, reactivated, cancelled or changed.'    
+    // description: 'For webhooks with the event_type invoice_*'
   },
 
   // `operation` is where the business logic goes.

@@ -10,7 +10,8 @@ module.exports = {
   noun: 'Customer',
   display: {
     label: 'Customer',
-    description: 'For webhooks with the event_type customer_*'
+    description: 'For information regarding customers. This includes creation, deletion, payment information added and if customer information has changed.'
+    // description: 'For webhooks with the event_type customer_*'
     // description: 'This is where you are gonna configurate how the zap should work in connection to reepay'
   },
 
