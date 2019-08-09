@@ -29,10 +29,10 @@ module.exports = {
           }
 
         return_arr[0] = {}
-        if (return_obj.hasOwnProperty('cust')) return_arr[0]['cust'] = return_obj['cust'];
-        if (return_obj.hasOwnProperty('sub')) return_arr[0]['sub'] = return_obj['sub'];
+        if (return_obj.hasOwnProperty('cust')) return_arr[0]['customer'] = return_obj['cust'];
+        if (return_obj.hasOwnProperty('sub')) return_arr[0]['subscription'] = return_obj['sub'];
         if (return_obj.hasOwnProperty('invoice')) return_arr[0]['invoice'] = return_obj['invoice'];
-        
+
         return return_arr;
     },
 

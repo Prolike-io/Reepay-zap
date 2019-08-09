@@ -34,8 +34,8 @@ module.exports = {
         }
         
         return_arr[0] = {}
-        if (return_obj.hasOwnProperty('cust')) return_arr[0]['cust'] = return_obj['cust'];
-        if (return_obj.hasOwnProperty('sub')) return_arr[0]['sub'] = return_obj['sub'];
+        if (return_obj.hasOwnProperty('cust')) return_arr[0]['customer'] = return_obj['cust'];
+        if (return_obj.hasOwnProperty('sub')) return_arr[0]['subscription'] = return_obj['sub'];
         if (return_obj.hasOwnProperty('invoice')) return_arr[0]['invoice'] = return_obj['invoice'];
 
         return return_arr;
@@ -58,7 +58,6 @@ module.exports = {
                 'content-type': 'application/json',
             }
         }).then((response) => JSON.parse(response.content));
-        // z.console.log('Was at cust_api')
         return promise;
     },
 
@@ -70,7 +69,6 @@ module.exports = {
                 'content-type': 'application/json',
             }
         }).then((response) => JSON.parse(response.content));
-        // z.console.log('Was at sub_api')
         return promise;
     },
 
@@ -82,7 +80,6 @@ module.exports = {
                 'content-type': 'application/json',
             }
         }).then((response) => JSON.parse(response.content));
-        // z.console.log('Was at invoice_api')
         return promise;
     }
 }
