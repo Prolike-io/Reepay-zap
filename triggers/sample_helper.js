@@ -6,28 +6,33 @@ module.exports = {
 
         if (objs.hasOwnProperty('cust')) {
             obj = objs['cust'];
-            var raw_cust_response = await this.cust_api();
-            z.console.log(raw_cust_response)
-            return_obj['cust'] = this.filter_object(obj.filter, raw_cust_response);
-        }
+            if (obj.filter.length != 0){
+              var raw_cust_response = await this.cust_api();
+              return_obj['cust'] = this.filter_object(obj.filter, raw_cust_response);
+            }
+          }
 
         if (objs.hasOwnProperty('sub')) {
             obj = objs['sub'];
-            var raw_sub_response = await this.sub_api();
-            return_obj["sub"] = this.filter_object(obj.filter, raw_sub_response);
-        }
+            if (obj.filter.length != 0){
+              var raw_sub_response = await this.sub_api();
+              return_obj["sub"] = this.filter_object(obj.filter, raw_sub_response);
+            }
+          }
 
         if (objs.hasOwnProperty('invoice')) {
             obj = objs['invoice'];
-            var raw_invoice_response = await this.invoice_api();
-            return_obj["invoice"] = this.filter_object(obj.filter, raw_invoice_response);
-        }
+            if (obj.filter.length != 0){
+              var raw_invoice_response = await this.invoice_api();
+              return_obj["invoice"] = this.filter_object(obj.filter, raw_invoice_response);
+            }
+          }
 
         return_arr[0] = {}
-        return_arr[0]['cust'] = return_obj['cust']
-        return_arr[0]['sub'] = return_obj['sub']
-        return_arr[0]['invoice'] = return_obj['invoice']
-
+        if (return_obj.hasOwnProperty('cust')) return_arr[0]['cust'] = return_obj['cust'];
+        if (return_obj.hasOwnProperty('sub')) return_arr[0]['sub'] = return_obj['sub'];
+        if (return_obj.hasOwnProperty('invoice')) return_arr[0]['invoice'] = return_obj['invoice'];
+        
         return return_arr;
     },
 

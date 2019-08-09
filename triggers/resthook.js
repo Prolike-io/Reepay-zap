@@ -84,8 +84,8 @@ module.exports = {
 
     noun: 'restHook',
     display: {
-      label: 'New restHook',
-      description: 'RestHook setup so its good'
+      label: 'Resthook',
+      description: 'Automated resthook setup with Reepay'
     },
 
     operation: {
@@ -165,6 +165,22 @@ module.exports = {
         },
       ],
       perform: (z, bundle) => {
+        
+        z.console.log(bundle.inputData)
+
+        // If the user wants data but the payload is missing the handle / id for the API it throws a error!
+        if(bundle.inputData.hasOwnProperty('customer_fields') && !bundle.cleanedRequest.hasOwnProperty('customer')){
+          throw 'Missing customer handle!'
+        }
+
+        if(bundle.inputData.hasOwnProperty('subscription_fields') && !bundle.cleanedRequest.hasOwnProperty('subscription')){
+          throw 'Missing subscription handle!'
+        }
+
+        if(bundle.inputData.hasOwnProperty('invoice_fields') && !bundle.cleanedRequest.hasOwnProperty('invoice')){
+          throw 'Missing invoice id!'
+        }
+
         return helper.main(
           z,
           {
