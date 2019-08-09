@@ -1,6 +1,7 @@
-const sub = require('./creates/subscription');
-const customer = require('./creates/customer');
-const invoice = require('./creates/invoice');
+// const sub = require('./creates/subscription');
+// const customer = require('./creates/customer');
+// const invoice = require('./creates/invoice');
+const resthook = require('./triggers/resthook')
 const authentication = require('./authentication');
 
 const includeApiKey = (request, z, bundle) => {
@@ -25,6 +26,7 @@ const App = {
 
   // If you want your trigger to show up, you better include it here!
   triggers: {
+    [resthook.key]: resthook
   },
 
   // If you want your searches to show up, you better include it here!
@@ -32,9 +34,9 @@ const App = {
 
   // If you want your creates to show up, you better include it here!
   creates: {
-    [customer.key]: customer,
-    [sub.key]: sub,
-    [invoice.key]: invoice
+    // [customer.key]: customer,
+    // [sub.key]: sub,
+    // [invoice.key]: invoice
   }
 };
 

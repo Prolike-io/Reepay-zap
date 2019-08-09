@@ -5,6 +5,36 @@ const testAuth = (z /*, bundle*/) => {
 
   // This method can return any truthy value to indicate the credentials are valid.
   // Raise an error to show
+
+  // priv_c4217f2bc2a603a420c79ebb742f43c1
+  // let webhook_settings = (async () => {
+  //   let returnValue = await function (z) {
+  //     const promise = z.request({
+  //         url: 'https://api.reepay.com/v1/account/webhook_settings',
+  //         method: 'GET',
+  //         headers: {
+  //             'content-type': 'application/json',
+  //         }
+  //     }).then((response) => JSON.parse(response.content));
+  //     return promise;
+  //   }
+  //   return returnValue;
+  // })();
+
+  // z.console.log(webhook_settings)
+  // webhook_settings['url'] = 'https://test.com'
+  // z.console.log(webhook_settings)
+
+  // z.request({
+  //   method: 'put',
+  //   url: 'https://api.reepay.com/v1/account/webhook_settings',
+  //   body: {
+  //     webhook_settings
+  //   }
+  // }).then((response) => {
+  //   console.log(response)
+  // });
+
   return z.request({
     url: 'https://api.reepay.com/v1/account',
   }).then((response) => {
@@ -28,5 +58,5 @@ module.exports = {
   // assuming "username" is a key in the json returned from testAuth
   connectionLabel: (z, bundle) => {
     return bundle.inputData.username;
-  }
+  },
 };
