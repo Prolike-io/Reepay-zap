@@ -1,10 +1,10 @@
 {
-  "name": "zapier-platform-example-app-trigger",
+  "name": "reepay",
   "version": "1.0.0",
-  "description": "An example app for the Zapier platform.",
-  "repository": "zapier/zapier-platform-example-app-trigger",
-  "homepage": "https://zapier.com/",
-  "author": "Bryan Helmig <bryan@zapier.com>",
+  "description": "Reepay provides you with an easy all in one payment solution with payment gateway.",
+  "repository": "prolike/reepay-zap",
+  "homepage": "https://reepay.com/",
+  "author": "David Carl <davidcarl@prolike.io>",
   "license": "BSD-3-Clause",
   "main": "index.js",
   "scripts": {
