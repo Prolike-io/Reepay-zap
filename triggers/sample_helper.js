@@ -2,7 +2,6 @@ module.exports = {
     main: async function (z, objs) {
         var return_obj = {};
         var return_arr = []
-        z.console.log(objs)
 
         if (objs.hasOwnProperty('cust')) {
             obj = objs['cust'];
@@ -28,10 +27,36 @@ module.exports = {
             }
           }
 
+        if (objs['cust_meta']['filter'] !== undefined && await this.isJson(objs['cust_meta']['filter'])) {  
+          cust_meta = {}
+          obj = JSON.parse(objs['cust_meta']['filter']);
+            for (var key in obj) {
+                if (obj.hasOwnProperty(key)) {
+                    cust_meta[key] = obj[key]
+                }
+            }
+          return_obj["cust_meta"] = cust_meta
+        }
+
+        if (objs['sub_meta']['filter'] !== undefined && await this.isJson(objs['sub_meta']['filter'])) {
+          sub_meta = {}
+          obj = JSON.parse(objs['sub_meta']['filter']);
+            for (var key in obj) {
+                if (obj.hasOwnProperty(key)) {
+                    cust_meta[key] = obj[key]
+                }
+            }
+          return_obj["sub_meta"] = sub_meta
+        }
+
         return_arr[0] = {}
         if (return_obj.hasOwnProperty('cust')) return_arr[0]['customer'] = return_obj['cust'];
         if (return_obj.hasOwnProperty('sub')) return_arr[0]['subscription'] = return_obj['sub'];
         if (return_obj.hasOwnProperty('invoice')) return_arr[0]['invoice'] = return_obj['invoice'];
+        if (return_obj.hasOwnProperty('cust_meta')) return_arr[0]['customer_meta'] = return_obj['cust_meta'];
+        if (return_obj.hasOwnProperty('sub_meta')) return_arr[0]['subscription_meta'] = return_obj['sub_meta'];
+
+        z.console.log(return_arr)
 
         return return_arr;
     },
@@ -43,6 +68,15 @@ module.exports = {
             rtn_obj[el] = obj[el];
         });
         return rtn_obj;
+    },
+
+    isJson: function (str) { 
+      try {
+          JSON.parse(str);
+      } catch (e) {
+          return false;
+      }
+      return true;
     },
 
     cust_api: function () {

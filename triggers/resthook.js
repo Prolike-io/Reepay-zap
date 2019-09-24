@@ -74,6 +74,12 @@ const sample_setup = (z, bundle) => {
       },
       'invoice': {
         'filter': (bundle.inputData.hasOwnProperty('invoice_fields')) ? bundle.inputData.invoice_fields : []
+      },
+      'cust_meta': {
+        'filter': bundle.inputData.customer_metadata
+      },
+      'sub_meta': {
+        'filter': bundle.inputData.subscription_metadata
       }
     }
   )
@@ -129,6 +135,10 @@ module.exports = {
                 "transferred_additional_costs", "transferred_additional_cost_amount",
                 "pending_credits", "pending_credit_amount", "transferred_credits",
                 "transferred_credit_amount", "test",]
+                // Text input field!
+            },
+            {
+              key: 'customer_metadata', list: true, helpText: 'Customer metadata field. You need to paste your metadata into this field if you want to use it later. If you dont use metadata then ignore this.', type: 'text'
             },
             {
               key: 'subscription_fields', list: true, helpText: 'Select the subscription fields you want to get information about, you can read about them [here](https://reference.reepay.com/api/#the-subscription-object). It is possible to add more fields by clicking the + on the right side, and remove a return field by clicking on the - next to the field.', choices: [
@@ -161,15 +171,19 @@ module.exports = {
                 "pending_change", "subscription_changes",
                 "subscription_add_ons", "test",]
             },
+            {
+              key: 'subscription_metadata', list: true, helpText: 'Subscription metadata field. You need to paste your metadata into this field if you want to use it later. If you dont use metadata then ignore this.', type: 'text'
+            },
           ]
         },
       ],
       perform: (z, bundle) => {
         
-        z.console.log(bundle.inputData)
+        // z.console.log(bundle.inputData)
 
         // If the user wants data but the payload is missing the handle / id for the API it throws a error!
         if(bundle.inputData.hasOwnProperty('customer_fields') && !bundle.cleanedRequest.hasOwnProperty('customer')){
+          z.console.log(bundle.cleanedRequest)
           throw 'Missing customer handle!'
         }
 
@@ -195,6 +209,12 @@ module.exports = {
             'invoice': {
               'handle': bundle.cleanedRequest.invoice,
               'filter': (bundle.inputData.hasOwnProperty('invoice_fields')) ? bundle.inputData.invoice_fields : []
+            },
+            'cust_meta': {
+              'filter': bundle.inputData.customer_metadata
+            },
+            'sub_meta': {
+              'filter': bundle.inputData.subscription_metadata
             }
           }
         )

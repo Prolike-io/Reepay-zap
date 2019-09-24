@@ -32,11 +32,36 @@ module.exports = {
                 }
             }
         }
+
+        if (objs['cust_meta']['filter'] !== undefined && await this.isJson(objs['cust_meta']['filter'])) {       
+            cust_meta = {}
+            obj = await this.meta_cust(z, objs['cust'].handle)
+              for (var key in obj) {
+                  if (obj.hasOwnProperty(key)) {
+                      cust_meta[key] = obj[key]
+                  }
+              }
+            return_obj["cust_meta"] = cust_meta
+          }
+  
+          if (objs['sub_meta']['filter'] !== undefined && await this.isJson(objs['sub_meta']['filter'])) {
+            sub_meta = {}
+            obj = await this.meta_sub(z, objs['sub'].handle)
+              for (var key in obj) {
+                  if (obj.hasOwnProperty(key)) {
+                      cust_meta[key] = obj[key]
+                  }
+              }
+            return_obj["sub_meta"] = sub_meta
+          }
         
         return_arr[0] = {}
+
         if (return_obj.hasOwnProperty('cust')) return_arr[0]['customer'] = return_obj['cust'];
         if (return_obj.hasOwnProperty('sub')) return_arr[0]['subscription'] = return_obj['sub'];
         if (return_obj.hasOwnProperty('invoice')) return_arr[0]['invoice'] = return_obj['invoice'];
+        if (return_obj.hasOwnProperty('cust_meta')) return_arr[0]['customer_meta'] = return_obj['cust_meta'];
+        if (return_obj.hasOwnProperty('sub_meta')) return_arr[0]['subscription_meta'] = return_obj['sub_meta'];
 
         return return_arr;
     },
@@ -81,5 +106,36 @@ module.exports = {
             }
         }).then((response) => JSON.parse(response.content));
         return promise;
+    },
+
+    meta_cust: function (z, handle) {
+        const promise = z.request({
+            url: 'https://api.reepay.com/v1/customer/' + handle + '/metadata',
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json',
+            }
+        }).then((response) => JSON.parse(response.content));
+        return promise;
+    },
+
+    meta_sub: function (z, handle) {
+        const promise = z.request({
+            url: 'https://api.reepay.com/v1/subscription/' + handle + '/metadata',
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json',
+            }
+        }).then((response) => JSON.parse(response.content));
+        return promise;
+    },
+    
+    isJson: function (str) { 
+      try {
+          JSON.parse(str);
+      } catch (e) {
+          return false;
+      }
+      return true;
     }
 }
