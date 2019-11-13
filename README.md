@@ -2,7 +2,7 @@
 
 This is a [Zapier](https://zapier.com/) application made for [Reepay](https://reepay.com/).
 
-The purpose of the application is giving their users point and click gui for automation, so they can tedius task easily.
+The purpose of the application is giving their users point and click gui for automation, so they can solve tedius task easily.
 
 ## Usage
 
@@ -26,35 +26,22 @@ This should make you a API key, you should save this for the time being, but kee
 
 ### Zapier setup
 
-First of all you need to be signed up on Zapier. Depending on how big and advanced you want your Zapier automation to be you will need different tier of subscriptions. We recommend you to have the 'Professional' plan to make the best automation usage of this Zap. The reasoning behind this is the need for 'Conditional Logic'.
+First of all you need to be signed up on Zapier. Depending on how big and advanced you want your Zapier automation to be you will need different tier of subscriptions.
+
+After that you will need to get invited to use the Reepay zap, here is a [invite link](https://zapier.com/developer/public-invite/31285/65590962c705bd0ec27d5480070e6fdd/) for now until it gets published. 
 
 You need to make a new zap which you can do by clicking on 'Make a Zap!'
 ![](images/zapier_make_zap.png)
 
-You are now supposed choose a Trigger App, for this we recommend to use Zapiers webhook app.
+You are now supposed choose a Trigger App, here you should select Reepay, and then at trigger event you want to select Resthook.
 
-Here you get asked to 'Select Webhooks by Zapier Trigger'. You need to select 'Catch Hook'. At the next step you dont need to do anything, just click 'Continue' here. At the last step you will be provided with a URL that seems a bit like this 'https://hooks.zapier.com/hooks/catch/xxxxxxxx'. You will need to save this URL for now and head into Reepay in a new fan.
+If you already have connected a Reepay account with your private API key before, now select that account or choose to add a new one, this will open a popup window where it ask permission to access your Reepay Account. Now its time to dig the API key from earlier back up, and put it in the API Key field and click 'Yes, Continue'. 
 
-As shown above when going into the API credentials, we just need to go into the Webhooks now.
+Now you need to select what kind of information you want, there is help text explaining the fields with a link to further information about the fields to select.
 
-You should now see this on the top of the new page
+Once you are done with this you will need to test the part we just setup, please click on the test & review if you wanna see the output of the selected data or test & continue if you trust you did it right. We would recommend test & review just for good sake.
 
-![](images/webhooks.png)
-
-You should now click on 'Configuration', it will open a popup. Here you should click on 'Add url'. This will create a textbox field where you can put your URL you got before, so it should look like this.
-
-![](images/webhook_config.png)
-
-Now go back to Zapier, here you should now click on 'Ok, i did this', this will make it wait for a trigger from Reepay so it knows what kind of data it gets. Either wait on getting a trigger, or provoke it yourself.
-
-Next thing you need to do is to add the Reepay zapier application.
-
-SELECT ACTION HERE WRITE THIS HERE
-
-Now you will be presented with a screen wherethere is a button called 'Connect an Account'. This will open a popup window where it ask permission to access your Reepay Account. Now its time to dig the API key from earlier back up, and put it in the API Key field and click 'Yes, Continue'. 
-
-WRITE MORE HERE WHEN THERE IS MORE INFORMATION AVAIBLE
-
+Now select the app you want to integrate with and then fill in the blanks!
 
 ## DISCLAIMER
 
