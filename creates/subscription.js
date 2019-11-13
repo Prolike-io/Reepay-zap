@@ -10,7 +10,8 @@ module.exports = {
   noun: 'Subscription',
   display: {
     label: 'Subscription',
-    description: 'For webhooks with the event_type subscription_*'
+    description: 'For information regarding subscriptions. This includes creation, payment method added / changed, trial end, renewal, cancelled, on hold, reactivation, expired and dunning information.'        
+    // description: 'For webhooks with the event_type subscription_*'
     // description: 'This is where you are gonna configurate how the zap should work in connection to reepay'
   },
 

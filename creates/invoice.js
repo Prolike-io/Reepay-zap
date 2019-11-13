@@ -10,8 +10,8 @@ module.exports = {
   noun: 'Invoice',
   display: {
     label: 'Invoice',
-    description: 'For webhooks with the event_type invoice_*'
-    // description: 'This is where you are gonna configurate how the zap should work in connection to reepay'
+    description: 'For information regarding invoices. This includes creation, paid, entered dunning, failed, refunded, reactivated, cancelled or changed.'    
+    // description: 'For webhooks with the event_type invoice_*'
   },
 
   // `operation` is where the business logic goes.
@@ -21,9 +21,9 @@ module.exports = {
       { key: 'customer_handle', type: 'string' },
       { key: 'subscription_handle', helpText: 'Handle/id of the subscription', type: 'string' },
       {
-        key: 'returns', children: [
+        key: 'Information fields', children: [
           {
-            key: 'invoice_fields', list: true, choices: [
+            key: 'invoice_fields', list: true, helpText: 'Select the invoice fields you want to get information about, you can read about them [here](https://reference.reepay.com/api/#the-invoice-object). It is possible to add more fields by clicking the + on the right side, and remove a return field by clicking on the - next to the field.', choices: [
               "id", "handle", "customer", "subscription",
               "plan", "state", "type", "amount", "number",
               "currency", "due", "failed", "settled",
@@ -39,7 +39,7 @@ module.exports = {
             ]
           },
           {
-            key: 'customer_fields', list: true, choices: [
+            key: 'customer_fields', list: true, helpText: 'Select the customer fields you want to get information about, you can read about them [here](https://reference.reepay.com/api/#the-customer-object). It is possible to add more fields by clicking the + on the right side, and remove a return field by clicking on the - next to the field.', choices: [
               "handle", "email", "first_name", "last_name",
               "address", "address2", "city", "postal_code",
               "country", "phone", "company", "vat",
@@ -57,7 +57,7 @@ module.exports = {
               "transferred_credit_amount", "test",]
           },
           {
-            key: 'subscription_fields', list: true, choices: [
+            key: 'subscription_fields', list: true, helpText: 'Select the subscription fields you want to get information about, you can read about them [here](https://reference.reepay.com/api/#the-subscription-object). It is possible to add more fields by clicking the + on the right side, and remove a return field by clicking on the - next to the field.', choices: [
               "handle", "customer", "plan", "state",
               "amount", "quantity", "expires", "reactivated",
               "timezone", "created", "activated", "renewing",
