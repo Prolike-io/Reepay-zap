@@ -3,8 +3,6 @@ module.exports = {
         var return_obj = {};
         var return_arr = []
 
-        z.console.log(objs)
-
         if (objs.hasOwnProperty('cust')) {
             obj = objs['cust'];
             if (obj.filter.length != 0){

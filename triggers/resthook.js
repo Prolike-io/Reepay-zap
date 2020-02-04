@@ -63,8 +63,6 @@ const unsubscribeHook = async (z, bundle) => {
 };
 
 const sample_setup = (z, bundle) => {
-  z.console.log(bundle)
-  z.console.log(z)
   return sample_helper.main(
     z,
     {
@@ -183,10 +181,9 @@ module.exports = {
         },
       ],
       perform: (z, bundle) => {
-        z.console.log(bundle)
         // If the user wants data but the payload is missing the handle / id for the API it throws a error!
         if(bundle.inputData.hasOwnProperty('customer_fields') && !bundle.cleanedRequest.hasOwnProperty('customer')){
-          z.console.log(bundle.cleanedRequest)
+          // z.console.log(bundle.cleanedRequest)
           throw 'Missing customer handle!'
         }
 
