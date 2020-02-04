@@ -3,6 +3,8 @@ module.exports = {
         var return_obj = {};
         var return_arr = []
 
+        z.console.log(objs)
+
         if (objs.hasOwnProperty('cust')) {
             obj = objs['cust'];
             if (obj.filter.length != 0){
@@ -50,13 +52,14 @@ module.exports = {
         }
 
         return_arr[0] = {}
+        return_arr[0]['event_type'] = objs['event']['type']
         if (return_obj.hasOwnProperty('cust')) return_arr[0]['customer'] = return_obj['cust'];
         if (return_obj.hasOwnProperty('sub')) return_arr[0]['subscription'] = return_obj['sub'];
         if (return_obj.hasOwnProperty('invoice')) return_arr[0]['invoice'] = return_obj['invoice'];
         if (return_obj.hasOwnProperty('cust_meta')) return_arr[0]['customer_meta'] = return_obj['cust_meta'];
         if (return_obj.hasOwnProperty('sub_meta')) return_arr[0]['subscription_meta'] = return_obj['sub_meta'];
 
-        z.console.log(return_arr)
+        // z.console.log(return_arr)
 
         return return_arr;
     },

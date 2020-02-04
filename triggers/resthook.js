@@ -63,6 +63,8 @@ const unsubscribeHook = async (z, bundle) => {
 };
 
 const sample_setup = (z, bundle) => {
+  z.console.log(bundle)
+  z.console.log(z)
   return sample_helper.main(
     z,
     {
@@ -80,6 +82,9 @@ const sample_setup = (z, bundle) => {
       },
       'sub_meta': {
         'filter': bundle.inputData.subscription_metadata
+      },
+      'event': {
+        'type': 'event_type'
       }
     }
   )
@@ -178,9 +183,7 @@ module.exports = {
         },
       ],
       perform: (z, bundle) => {
-        
-        // z.console.log(bundle.inputData)
-
+        z.console.log(bundle)
         // If the user wants data but the payload is missing the handle / id for the API it throws a error!
         if(bundle.inputData.hasOwnProperty('customer_fields') && !bundle.cleanedRequest.hasOwnProperty('customer')){
           z.console.log(bundle.cleanedRequest)
@@ -215,6 +218,9 @@ module.exports = {
             },
             'sub_meta': {
               'filter': bundle.inputData.subscription_metadata
+            },
+            'event': {
+              'type': bundle.cleanedRequest.event_type
             }
           }
         )

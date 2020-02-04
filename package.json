@@ -1,6 +1,6 @@
 {
-  "name": "reepay",
-  "version": "1.0.0",
+  "name": "reepay_dev",
+  "version": "1.0.2",
   "description": "Reepay provides you with an easy all in one payment solution with payment gateway.",
   "repository": "prolike/reepay-zap",
   "homepage": "https://reepay.com/",
@@ -15,7 +15,7 @@
     "npm": ">=5.6.0"
   },
   "dependencies": {
-    "zapier-platform-core": "8.0.1"
+    "zapier-platform-core": "9.0.0"
   },
   "devDependencies": {
     "mocha": "^5.2.0",

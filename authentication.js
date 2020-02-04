@@ -5,6 +5,9 @@ const testAuth = (z /*, bundle*/) => {
     if (response.status === 401) {
       throw new Error('The API Key you supplied is invalid');
     }
+    if (response.status === 400) {
+      throw new Error('Not a valid private API key')
+    }
     return response.json;
   });
 };

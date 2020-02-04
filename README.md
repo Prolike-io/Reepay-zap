@@ -22,6 +22,7 @@ You should be able to see a clickable text called 'Generate new', click this. Yo
 
 ![](images/api.png)
 
+
 This should make you a API key, you should save this for the time being, but keep it private since it can give access to you customer data. 
 
 ### Zapier setup
